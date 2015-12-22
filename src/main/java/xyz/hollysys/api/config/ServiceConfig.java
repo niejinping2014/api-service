@@ -10,17 +10,17 @@ import java.util.Map;
  */
 public class ServiceConfig {
 	// 通道配置参数
-	private Map<String,String> CHANNEL_KEY_SET = new HashMap<String,String>();
+	private Map<String,String> KEY_SET = new HashMap<String,String>();
 	
 	//　模块配置参数
 	private  Map<String,Object> ACT_NAME_MAP = new HashMap<String,Object>();
 
-	public Map<String, String> getCHANNEL_KEY_SET() {
-		return CHANNEL_KEY_SET;
+	public Map<String, String> getKEY_SET() {
+		return KEY_SET;
 	}
 
-	public void setCHANNEL_KEY_SET(Map<String, String> cHANNEL_KEY_SET) {
-		CHANNEL_KEY_SET = cHANNEL_KEY_SET;
+	public void setKEY_SET(Map<String, String> kEY_SET) {
+		KEY_SET = KEY_SET;
 	}
 
 	public Map<String, Object> getACT_NAME_MAP() {

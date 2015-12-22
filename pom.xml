@@ -194,7 +194,7 @@
 					<server>tomcat-localhost</server>
 					<username>admin</username>
 					<password>admin</password>
-					<path>/api</path>
+					<path>/</path>
 					<!-- <path>/wp</path> -->
 					<port>8888</port>
 					<uriEncoding>UTF-8</uriEncoding>

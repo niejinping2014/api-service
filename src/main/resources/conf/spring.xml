@@ -8,17 +8,19 @@
       http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- 引入jdbc，redis 配置文件 -->
-	<context:property-placeholder location="classpath:conf/jdbc.properties" ignore-unresolvable="true"/>
+	<context:property-placeholder location="classpath:conf/jdbc.properties"
+		ignore-unresolvable="true" />
 
 	<!-- 扫描文件（自动将service层注入） -->
+	<context:component-scan base-package="xyz.hollysys.api.dispatch" />
 	<context:component-scan base-package="xyz.hollysys.api.service" />
 	<context:component-scan base-package="xyz.hollysys.api.serviceImpl" />
 	<context:component-scan base-package="xyz.hollysys.api.dao" />
-	<!-- 扫描控制器 ,注意顺序关系-->
-	<context:component-scan base-package="xyz.hollysys.api.controller" />
+	<!-- 扫描控制器 ,注意顺序关系 -->
+	<context:component-scan base-package="xyz.hollysys.api.main" />
 	<!-- 扫描DB helper -->
-	<context:component-scan base-package="package xyz.hollysys.api.dbHelper" />
-	
+	<!-- <context:component-scan base-package="xyz.hollysys.api.dbHelper" /> -->
+
 	<!-- log4j -->
 	<bean id="log4jInitialization"
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">

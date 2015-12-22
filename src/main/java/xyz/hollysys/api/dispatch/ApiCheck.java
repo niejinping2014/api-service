@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import xyz.hollysys.api.config.ServiceConfig;
 import xyz.hollysys.api.model.ApiResult;
 import xyz.hollysys.api.service.ApiResultUtil;
 
@@ -25,6 +26,10 @@ public class ApiCheck {
 	@Autowired
 	@Qualifier("apiResultUtilImpl")
 	private ApiResultUtil apiResultUtil;
+	
+	@Autowired
+	@Qualifier("serviceConfig")
+	private ServiceConfig config;
 	
 
 	
