@@ -27,6 +27,7 @@
 <!--             <entry key="active" value-ref="activeFactory" />
             <entry key="teacher" value-ref="teacherServiceImpl" />
             <entry key="order" value-ref="orderServiceImpl" /> -->
+            <entry key="passport" value-ref="passportService" />
          </map>
       </property>
    </bean>

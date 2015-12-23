@@ -32,4 +32,12 @@
 			</list>
 		</property>
 	</bean>
+	
+<!-- 	<bean id="mainFilter" class="xyz.hollysys.api.main.MainFilter">
+		<property name="apiCheck" ref="apiCheck"></property>
+	</bean>
+	
+	<bean id="mainServlet" class="xyz.hollysys.api.main.MainServlet">
+		<property name="apiDispatch" ref="apiDispatch"></property>
+	</bean> -->
 </beans>

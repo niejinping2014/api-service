@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>xyz.hollsys.service</groupId>
-  <artifactId>api</artifactId>
-  <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>service Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  
-  	<properties>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>xyz.hollsys.service</groupId>
+	<artifactId>api</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>service Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<mybatis.version>3.2.4</mybatis.version>
@@ -16,9 +16,9 @@
 		<log4j.version>1.2.12</log4j.version>
 		<finalName>api-service</finalName>
 	</properties>
-  
-  <dependencies>
-  <dependency>
+
+	<dependencies>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
@@ -127,7 +127,11 @@
 			<artifactId>validation-api</artifactId>
 			<version>1.0.0.GA</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.2.0.Final</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -146,8 +150,8 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-		
-				<dependency>
+
+		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
@@ -181,9 +185,9 @@
 			<version>14.0.1</version>
 		</dependency>
 
-  </dependencies>
-  <build>
-    	<finalName>${finalName}</finalName>
+	</dependencies>
+	<build>
+		<finalName>${finalName}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
@@ -201,5 +205,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-  </build>
+	</build>
 </project>

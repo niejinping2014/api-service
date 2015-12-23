@@ -7,21 +7,29 @@ package xyz.hollysys.api.model;
  */
 public class User {
 	private long user_id;
-	private long user_account;
+	private String user_account;
 	private String user_name;
 	private String user_address;
 	private String user_cardtype;
 	private String user_idcard;
+	private String password;
+	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public long getUser_id() {
 		return user_id;
 	}
 	public void setUser_id(long user_id) {
 		this.user_id = user_id;
 	}
-	public long getUser_account() {
+	public String getUser_account() {
 		return user_account;
 	}
-	public void setUser_account(long user_account) {
+	public void setUser_account(String user_account) {
 		this.user_account = user_account;
 	}
 	public String getUser_name() {
@@ -52,7 +60,7 @@ public class User {
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_account=" + user_account + ", user_name=" + user_name
 				+ ", user_address=" + user_address + ", user_cardtype=" + user_cardtype + ", user_idcard=" + user_idcard
-				+ "]";
+				+ ", password=" + password + "]";
 	}
 	
 	

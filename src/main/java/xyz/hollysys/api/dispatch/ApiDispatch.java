@@ -44,9 +44,9 @@ public class ApiDispatch {
 		ApiResult result = new ApiResult();
 		
 		
-		String actName = InvokerInfoHelper.getAct(params);
+		String className = InvokerInfoHelper.getClass(params);
 		String methodName = InvokerInfoHelper.getMethod(params);
-		String version = InvokerInfoHelper.getVer(params);
+		// String version = InvokerInfoHelper.getVer(params);
 		
 		
 		Class<?> class1 = null;  
@@ -54,11 +54,11 @@ public class ApiDispatch {
 			//class1 = Class.forName(ApiConfig.ACT_NAME_MAP.get(actName));
 			//class1 = Class.forName(config.getACT_NAME_MAP().get(actName));
 			//Object obj= class1.newInstance();
-			Object obj = config.getACT_NAME_MAP().get(actName);
+			Object obj = config.getACT_NAME_MAP().get(className);
 			
 			// 检查对象
 			if(null == obj){
-				logger.error(String.format("act not found.act_name : %s", actName));
+				logger.error(String.format("act not found.act_name : %s", className));
 				result = apiResultUtil.getApiResult(201);
 				
 				return result;
@@ -74,7 +74,8 @@ public class ApiDispatch {
 			}*/
 			
 			// 这里特殊处理了
-			Method method = class1.getMethod(methodName,Class.forName("javax.ws.rs.core.MultivaluedMap"),String.class,String.class);
+			// Method method = class1.getMethod(methodName,Class.forName("javax.ws.rs.core.MultivaluedMap"),String.class);
+			 Method method = class1.getMethod(methodName,Map.class,String.class);
 			
 			// 检查接口
 			if(method == null){
@@ -83,7 +84,7 @@ public class ApiDispatch {
 				return result;
 			}
 					
-			result = (ApiResult) method.invoke(obj, params,body,version);
+			result = (ApiResult) method.invoke(obj, params,body);
 			//logger.debug(new Gson().toJson(result));
 			return result;
 		} catch (Exception e) {

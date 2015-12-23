@@ -2,30 +2,57 @@ package xyz.hollysys.api.main;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+
+import com.alibaba.fastjson.JSON;
+
+import xyz.hollysys.api.dispatch.ApiDispatch;
+import xyz.hollysys.api.model.ApiResult;
+import xyz.hollysys.api.util.HttpRequestHelper;
 
 /**
  * 
  * @author sanhao
  *
  */
-@Controller
+@Controller("mainServlet")
 public class MainServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = Logger.getLogger(MainServlet.class);
+	
+	@Autowired
+	@Qualifier("apiDispatch")
+	private ApiDispatch apiDispatch;
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 获取请求参数
+		Map<String,String> params = HttpRequestHelper.getQueryParams(request);
+		// 获取请求body数据
+		String body = HttpRequestHelper.getBody(request);
+		
+		// 进行调度
+		ApiResult result =  apiDispatch.dispatch(params, body);
+		
+		logger.info("result : " + result.toString());
+		
+		PrintWriter out = response.getWriter();
+		out.println(JSON.toJSONString(result));
 
+		System.out.println("api check failed ==> " + JSON.toJSONString(result));
+		
+	}
+	/*
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		StringBuilder sb = new StringBuilder();
 
@@ -122,5 +149,5 @@ public class MainServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println(sb.toString());
 	}
-
+*/
 }

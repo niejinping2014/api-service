@@ -31,8 +31,6 @@ public class ApiCheck {
 	@Qualifier("serviceConfig")
 	private ServiceConfig config;
 	
-
-	
 	// DI使用
 	public void setCHECK_PARAM_LIST(Set<String> cHECK_PARAM_LIST) {
 		CHECK_PARAM_LIST = cHECK_PARAM_LIST;

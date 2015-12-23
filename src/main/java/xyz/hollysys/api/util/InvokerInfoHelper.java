@@ -29,6 +29,10 @@ public class InvokerInfoHelper {
 		return params.get("act");
 	}
 	
+	public static String getClass(Map<String,String> params){
+		return params.get("class");
+	}
+	
 	public static String getVer(Map<String,String> params){
 		String ver = params.get("ver");
 		if(ver != null){
