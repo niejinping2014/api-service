@@ -14,8 +14,8 @@ public interface UserDAO {
 	@Select("SELECT * FROM `hls_user` WHERE `user_account` = #{user_account}")
 	User getUserByAccountId(@Param("user_account")String user_account);
 	
-	@Insert("INSERT INTO `hls_user`(`user_account`, `user_password`) VALUES (#{user_account},#{user_password})")
-	int addUser(@Param("user_account")String user_account,@Param("user_password")String user_password);
+	@Insert("INSERT INTO `hls_user`(`user_account`, `user_password`,`user_salt`) VALUES (#{user_account},#{user_password},#{user_salt})")
+	int addUser(@Param("user_account")String user_account,@Param("user_password")String user_password,@Param("user_salt")int user_salt);;
 	
 	@Select("SELECT `user_password` FROM `hls_user` WHERE `user_account`=#{user_account}")
 	String getPassword(@Param("user_account")String user_account);

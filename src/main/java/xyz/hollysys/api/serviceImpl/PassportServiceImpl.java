@@ -1,6 +1,7 @@
 package xyz.hollysys.api.serviceImpl;
 
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import xyz.hollysys.api.model.RegisterUser;
 import xyz.hollysys.api.model.User;
 import xyz.hollysys.api.service.ApiResultUtil;
 import xyz.hollysys.api.service.PassportService;
+import xyz.hollysys.api.util.EncodeHelper;
 
 @Component("passportService")
 public class PassportServiceImpl implements PassportService {
@@ -30,6 +32,8 @@ public class PassportServiceImpl implements PassportService {
 	// 用户注册
 	public ApiResult register(Map<String, String> params, String body) {
 		ApiResult result = apiResultUtil.getApiResult(201);
+		int salt = new Random().nextInt(100000) + 3;
+		
 		logger.info("用户注册啦 用户信息：" + body);
 		
 		RegisterUser regUser = JSON.parseObject(body, RegisterUser.class);
@@ -39,7 +43,7 @@ public class PassportServiceImpl implements PassportService {
 			user.setUser_account(regUser.account);
 			user.setUser_password(regUser.password);
 			
-			userDAO.addUser(user.getUser_account(), user.getUser_password());
+			userDAO.addUser(user.getUser_account(), EncodeHelper.getPassword(regUser.account,regUser.password,salt),salt);
 			
 			logger.info("用户注册成功  : " + user.getUser_account());
 			
@@ -59,13 +63,24 @@ public class PassportServiceImpl implements PassportService {
 	// 用户登陆
 	public ApiResult login(Map<String, String> params, String body) {
 		ApiResult result = apiResultUtil.getApiResult(201);
-		logger.info("用户登陆：" + body);
+		logger.info("用户登陆：" );
 		
 		RegisterUser regUser = JSON.parseObject(body, RegisterUser.class);
 		
+		User user = userDAO.getUserByAccountId(regUser.account);
+		
+		if(user == null){
+			logger.error("用户登陆失败 usr :" + regUser.account);
+			
+			result = apiResultUtil.getApiResult(1002);
+			return result;
+		}
+		
 		String password = userDAO.getPassword(regUser.account);
 		String sessionid = "";
-		if(regUser.password.equals(password)){
+		String pass = EncodeHelper.getPassword(regUser.account, regUser.password, user.getUser_salt());
+				
+		if(pass.equals(password)){
 			logger.info("用户登陆成功 usr : " + regUser.account);
 			
 			// 绑定session
@@ -127,9 +142,20 @@ public class PassportServiceImpl implements PassportService {
 		
 		RegisterUser regUser = JSON.parseObject(body, RegisterUser.class);
 		
+		User user = userDAO.getUserByAccountId(regUser.account);
+		
+		if(user == null){
+			logger.error("用户信息失败 usr :" + regUser.account);
+			
+			result = apiResultUtil.getApiResult(1002);
+			return result;
+		}
+		
 		String password = userDAO.getPassword(regUser.account);
 		String sessionid = "";
-		if(regUser.password.equals(password)){
+		String pass = EncodeHelper.getPassword(regUser.account, regUser.password, user.getUser_salt());
+		
+		if(pass.equals(password)){
 			logger.info("用户登陆成功 usr : " + regUser.account);
 			
 			// 绑定session
@@ -166,12 +192,22 @@ public class PassportServiceImpl implements PassportService {
 		logger.info("用户修改密码：");
 		
 		RegisterUser regUser = JSON.parseObject(body, RegisterUser.class);
+		User user = userDAO.getUserByAccountId(regUser.account);
+		
+		if(user == null){
+			logger.error("用户信息失败 usr :" + regUser.account);
+			
+			result = apiResultUtil.getApiResult(1002);
+			return result;
+		}
 		
 		String password = userDAO.getPassword(regUser.account);
 		String sessionid = "";
-		if(regUser.password.equals(password)){
+		String pass = EncodeHelper.getPassword(regUser.account, regUser.password, user.getUser_salt());
+
+		if(pass.equals(password)){
 			
-			userDAO.updatePassword(regUser.account, regUser.newpassword);
+			userDAO.updatePassword(regUser.account, EncodeHelper.getPassword(regUser.account, regUser.newpassword, user.getUser_salt()));
 			userDAO.updateSessioin(regUser.account,sessionid);
 			
 			logger.info("重置密码成功 usr: " + regUser.account);
