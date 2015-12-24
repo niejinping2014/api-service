@@ -41,6 +41,9 @@ public class MainServlet extends HttpServlet {
 		// 获取请求body数据
 		String body = HttpRequestHelper.getBody(request);
 		
+		logger.debug("params" + params.toString());
+		logger.debug("body : " + body);
+		
 		// 进行调度
 		ApiResult result =  apiDispatch.dispatch(params, body);
 		

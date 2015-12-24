@@ -14,97 +14,68 @@
     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
     http://www.springframework.org/schema/util
     http://www.springframework.org/schema/util/spring-util-3.0.xsd">
-    
-        <!-- API-SERVICE配置 -->
-   <bean id="serviceConfig" class="xyz.hollysys.api.config.ServiceConfig">
-      <property name="KEY_SET">
-         <map>
-            <entry key="hls" value="hls123" />
-         </map>
-      </property>
-      <property name="ACT_NAME_MAP">
-         <map>
-<!--             <entry key="active" value-ref="activeFactory" />
-            <entry key="teacher" value-ref="teacherServiceImpl" />
-            <entry key="order" value-ref="orderServiceImpl" /> -->
-            <entry key="passport" value-ref="passportService" />
-         </map>
-      </property>
-   </bean>
-   <bean id="apiCheck" class="xyz.hollysys.api.dispatch.ApiCheck">
-      <property name="CHECK_PARAM_LIST">
-         <set>
-            <value>class</value>
-            <value>method</value>
-            <value>timestamp</value>
-            <value>encode</value>
-         </set>
-      </property>
-      <property name="enable_key">
-      	<value>123456789</value>
-      </property>
-   </bean>
-   <bean id="apiDispatch" class="xyz.hollysys.api.dispatch.ApiDispatch" />
-  
-   
-   <!-- 错误码定义 -->
-   <util:map id="Error_Code_Map" key-type="java.lang.Integer">
-   		<!-- 非法请求 -->
-   		<entry key="99" value="非法RPC请求" />
-   		<entry key="100" value="缺少参数"/>
-   		
-   		<!-- 无效信息 -->
-   		<entry key="200" value="无接口使用权限"/>
-   		<entry key="201" value="无效模块"/>
-   		<entry key="202" value="无效方法" />
-   		<entry key="203" value="无效渠道" />
-   		
-   </util:map>
-   
- <!--   
-   <bean id="cityConfig" class="xyz.hollysys.api.config.CityConfig">
-      <property name="FIRST_CITY_SET">
-         <set>
-            <value>11</value>
-            <value>1101</value>
-            <value>1102</value>
-            <value>1103</value>
-            <value>1104</value>
-            <value>1105</value>
-            <value>1106</value>
-            <value>1107</value>
-            <value>1108</value>
-            <value>1109</value>
-            <value>1111</value>
-            <value>1112</value>
-            <value>1113</value>
-            <value>1114</value>
-            <value>1115</value>
-            <value>1116</value>
-            <value>1117</value>
-            <value>3101</value>
-            <value>31</value>
-            <value>3104</value>
-            <value>3105</value>
-            <value>3106</value>
-            <value>3107</value>
-            <value>3108</value>
-            <value>3109</value>
-            <value>3110</value>
-            <value>1128</value>
-            <value>3112</value>
-            <value>1129</value>
-            <value>3113</value>
-            <value>3114</value>
-            <value>3115</value>
-            <value>3116</value>
-            <value>3117</value>
-            <value>3118</value>
-            <value>3120</value>
-            <value>4401</value>
-            <value>4403</value>
-            <value>3130</value>
-         </set>
-      </property>
-   </bean> -->
+
+	<!-- API-SERVICE配置 -->
+	<bean id="serviceConfig" class="xyz.hollysys.api.config.ServiceConfig">
+		<property name="KEY_SET">
+			<map>
+				<entry key="hls" value="hls123" />
+			</map>
+		</property>
+		<property name="ACT_NAME_MAP">
+			<map>
+				<!-- <entry key="active" value-ref="activeFactory" /> <entry key="teacher" 
+					value-ref="teacherServiceImpl" /> <entry key="order" value-ref="orderServiceImpl" 
+					/> -->
+				<entry key="passport" value-ref="passportService" />
+			</map>
+		</property>
+	</bean>
+	<bean id="apiCheck" class="xyz.hollysys.api.dispatch.ApiCheck">
+		<property name="CHECK_PARAM_LIST">
+			<set>
+				<value>class</value>
+				<value>method</value>
+				<value>timestamp</value>
+				<value>encode</value>
+			</set>
+		</property>
+		<property name="enable_key">
+			<value>123456789</value>
+		</property>
+	</bean>
+	<bean id="apiDispatch" class="xyz.hollysys.api.dispatch.ApiDispatch" />
+
+
+	<!-- 错误码定义 -->
+	<util:map id="Error_Code_Map" key-type="java.lang.Integer">
+		<!-- 非法请求 -->
+		<entry key="99" value="非法RPC请求" />
+		<entry key="100" value="缺少参数" />
+
+		<!-- 无效信息 -->
+		<entry key="200" value="无接口使用权限" />
+		<entry key="201" value="无效模块" />
+		<entry key="202" value="无效方法" />
+		<entry key="203" value="无效渠道" />
+
+		<!-- 账户信息 -->
+		<entry key="1001" value="用户已注册,请不要重复注册" />
+		<entry key="1002" value="登陆失败 ,密码错误" />
+		<entry key="1003" value="退出失败,无效会话标识" />
+		<entry key="1004" value="修改密码失败,错误的密码" />
+	</util:map>
+
+	<!-- <bean id="cityConfig" class="xyz.hollysys.api.config.CityConfig"> <property 
+		name="FIRST_CITY_SET"> <set> <value>11</value> <value>1101</value> <value>1102</value> 
+		<value>1103</value> <value>1104</value> <value>1105</value> <value>1106</value> 
+		<value>1107</value> <value>1108</value> <value>1109</value> <value>1111</value> 
+		<value>1112</value> <value>1113</value> <value>1114</value> <value>1115</value> 
+		<value>1116</value> <value>1117</value> <value>3101</value> <value>31</value> 
+		<value>3104</value> <value>3105</value> <value>3106</value> <value>3107</value> 
+		<value>3108</value> <value>3109</value> <value>3110</value> <value>1128</value> 
+		<value>3112</value> <value>1129</value> <value>3113</value> <value>3114</value> 
+		<value>3115</value> <value>3116</value> <value>3117</value> <value>3118</value> 
+		<value>3120</value> <value>4401</value> <value>4403</value> <value>3130</value> 
+		</set> </property> </bean> -->
 </beans>

@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
-import org.springframework.util.MultiValueMap;
 
 /**
  * HTTP 请求参数提取,这个不再对外提供使用
@@ -32,6 +33,7 @@ public class HttpRequestHelper {
 		return result;
 	}
 	
+	// 会加入session
 	public static Map<String, String> getQueryParams(HttpServletRequest request){
 		Map<String,String> result = new HashMap<String,String>();
 		String params = request.getQueryString();
@@ -46,9 +48,35 @@ public class HttpRequestHelper {
 			}
 		}
 		
+		
+		String sessionId = "";
+		
+/*		 Cookie[] cookies = request.getCookies();
+         if (cookies != null)
+         {
+             for (Cookie cook : cookies)
+             {
+                 if ("JSESSIONID".equalsIgnoreCase(cook.getName()))
+                 {
+                	 sessionId = cook.getValue();
+                     break;
+                 }
+             }
+         }*/
+         
+         HttpSession session = request.getSession();
+         sessionId = session.getId();
+         
+         result.put("user_session", sessionId);
+		
 		return result;
 	}
 	
+	/**
+	 * 注意：这个接口只能调用一次，第二次调用，会返回null.国为流的特性是这样:读完就没了.
+	 * @param request
+	 * @return
+	 */
 	public static String getBody(HttpServletRequest request){
 		String result = null;
 		
