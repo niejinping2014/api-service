@@ -5,10 +5,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 	<!-- 命名空间 -->
 	<typeAliases>
-<!-- 		<typeAlias alias="TeacherAlbum" type="xyz.hollysys.api.model.TeacherAlbum" />
-		<typeAlias alias="TeacherCat" type="xyz.hollysys.api.model.TeacherCat" />
-		<typeAlias alias="TeacherTime" type="xyz.hollysys.api.model.TeacherTime" />
-		<typeAlias alias="BillOut" type="xyz.hollysys.api.bill.BillOut" /> -->
+		<!-- <typeAlias alias="TeacherAlbum" type="xyz.hollysys.api.model.TeacherAlbum" 
+			/> <typeAlias alias="TeacherCat" type="xyz.hollysys.api.model.TeacherCat" 
+			/> <typeAlias alias="TeacherTime" type="xyz.hollysys.api.model.TeacherTime" 
+			/> <typeAlias alias="BillOut" type="xyz.hollysys.api.bill.BillOut" /> -->
+		<typeAlias alias="User" type="xyz.hollysys.api.model.User" />
+		<typeAlias alias="UserDetail" type="xyz.hollysys.api.model.UserDetail" />
 	</typeAliases>
 
 	<!-- 映射map -->

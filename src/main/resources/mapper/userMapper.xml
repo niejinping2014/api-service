@@ -3,5 +3,92 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.hollysys.api.dao.UserDAO">
+<!-- 	<resultMap id="TeacherTimeList" type="TeacherTime">
+		<id column="teacher_id" property="teacher_id" />
+		<result column="tt_time" property="tt_time" />
+		<result column="free_time" property="free_time" />
+		<result column="timemap1" property="timemap1" />
+		<result column="timemap2" property="timemap2" />
+		<result column="timemap3" property="timemap3" />
+	</resultMap>
 
+
+	 <select id="getTeacherTimeList" resultMap="TeacherTimeList">
+		 select teacher_id,tt_time,free_num,timemap1,timemap2,timemap3  
+		 from ysyy_teacher_time where teacher_id = #{teacher_id} 
+		 and tt_time in
+		 <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		  	#{item}
+		 </foreach>
+		  order by tt_time
+	 </select>
+
+	 <select id="getTeacherTimeListFree" resultMap="TeacherTimeList">
+		 select teacher_id,tt_time,free_num,timemap1,timemap2,timemap3  
+		 from ysyy_teacher_time where teacher_id = #{teacher_id} 
+		 and free_num > 0 
+		 and tt_time in 
+		 <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		  	#{item} 
+		 </foreach> 
+		  order by tt_time 
+	 </select> -->
+	 
+<!-- 	 	<update id="editTe">
+		update ysyy_teacher_impression set
+		<if test="te_starttime != 0">
+			te_starttime = #{te_starttime} 
+		</if>
+		<if test="te_endtime != 0">
+			te_endtime= #{te_endtime} 
+		</if>
+		<if test="te_desc != null">
+			te_desc = #{te_desc}
+		</if>
+		where te_id = #{te_id}
+	</update> -->
+
+<!-- 	<resultMap id="UserDetailMap"  type="UserDetail">
+		<id column="teacher_id" property="teacher_id" />
+		<result column="tt_time" property="tt_time" />
+		<result column="free_time" property="free_time" />
+		<result column="timemap1" property="timemap1" />
+		<result column="timemap2" property="timemap2" />
+		<result column="timemap3" property="timemap3" />
+	</resultMap> -->
+	
+	<update id="updateUserDetail" parameterType="UserDetail">
+		update hls_user_detail set user_id=#{user_id} 
+		<if test="user_idcard != null and user_idcard != '' ">
+			,user_idcard=#{user_idcard}
+		</if>
+		<if test="user_idcardtype != null and user_idcardtype != '' ">
+			,user_idcardtype=#{user_idcardtype}  
+		</if>
+		<if test=" user_head != null and user_head != '' ">
+			,user_head=#{user_head}  
+		</if>
+		<if test=" user_nickname != null and user_nickname != '' ">
+			,user_nickname=#{user_nickname}  
+		</if>
+		<if test=" user_sex != null and user_sex != '' ">
+			,user_sex=#{user_sex}  
+		</if>
+		<if test=" user_birth_year != 0 ">
+			,user_birth_year=#{user_birth_year}  
+		</if>
+		<if test=" user_birth_month != 0 ">
+			,user_birth_month=#{user_birth_month}  
+		</if>
+		<if test=" user_birth_day != 0 ">
+			,user_birth_day=#{user_birth_day}  
+		</if>
+		<if test=" user_default_address != null and user_default_address != '' ">
+			,user_default_address=#{user_default_address}  
+		</if>
+		<if test=" user_default_mobile != null and user_default_mobile != '' ">
+			,user_default_mobile=#{user_default_mobile}  
+		</if>
+		where user_id = #{user_id}
+	</update>
 </mapper>

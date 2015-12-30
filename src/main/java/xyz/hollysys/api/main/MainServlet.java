@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.alibaba.fastjson.JSON;
@@ -26,6 +27,7 @@ import xyz.hollysys.api.util.HttpRequestHelper;
  *
  */
 @Controller("mainServlet")
+//@Scope("session")
 public class MainServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -55,6 +57,28 @@ public class MainServlet extends HttpServlet {
 		System.out.println("api check failed ==> " + JSON.toJSONString(result));
 		
 	}
+	
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 获取请求参数
+		Map<String,String> params = HttpRequestHelper.getQueryParams(request);
+		// 获取请求body数据
+		String body = HttpRequestHelper.getBody(request);
+		
+		logger.debug("params" + params.toString());
+		logger.debug("body : " + body);
+		
+		// 进行调度
+		ApiResult result =  apiDispatch.dispatch(params, body);
+		
+		logger.info("result : " + result.toString());
+		
+		PrintWriter out = response.getWriter();
+		out.println(JSON.toJSONString(result));
+
+		System.out.println("api check failed ==> " + JSON.toJSONString(result));
+		
+	}
+	
 	/*
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		StringBuilder sb = new StringBuilder();

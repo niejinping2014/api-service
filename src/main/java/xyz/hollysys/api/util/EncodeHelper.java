@@ -19,6 +19,14 @@ public class EncodeHelper {
 		return EncoderHandler.encodeByMD5(sb.toString());
 	}
 	
+	public static String getPassword(String account, String password){
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(account).append(password);
+
+		return EncoderHandler.encodeByMD5(sb.toString());
+	}
+	
 	public static void main(String[] args){
 		System.out.println(getPassword("njp","123345",1356));
 		System.out.println(getPassword("njp","123345",1356).length());

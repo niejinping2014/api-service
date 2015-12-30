@@ -193,15 +193,23 @@
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<configuration>
-		<!-- 			<url>http://localhost:8080/manager/text</url> -->
-					<url>http://localhost:8080/manager/text</url>
-					<server>tomcat-localhost</server>
+					<!-- <url>http://www.hollysys.xyz:8888/manager/html</url> -->
+					<url>http://www.hollysys.xyz:8888/manager/text</url>
+					<!-- <url>http://localhost:8080/manager/text</url> -->
+					<!-- <server>tomcat-localhost</server> -->
+					<server>tomcat</server>
 					<username>admin</username>
 					<password>admin</password>
-					<path>/</path>
-					<!-- <path>/wp</path> -->
+					<path>/${finalName}</path>
 					<port>8888</port>
 					<uriEncoding>UTF-8</uriEncoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 		</plugins>

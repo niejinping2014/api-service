@@ -4,16 +4,18 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 
 /**
  * HTTP 请求参数提取,这个不再对外提供使用
  */
 public class HttpRequestHelper {
+	private static Logger logger = Logger.getLogger(HttpRequestHelper.class);
+		
 	public static Map<String,String> getPathParams(HttpServletRequest request){
 		Map<String,String> result = new HashMap<String,String>();
 		String[] parts =  request.getRequestURI().split("\\/");
@@ -67,9 +69,20 @@ public class HttpRequestHelper {
          HttpSession session = request.getSession();
          sessionId = session.getId();
          
+         logger.debug("session is new : " + session.isNew());
+         
+         if(session.getAttribute("user_session") == null){
+        	 session.setAttribute("user_session", sessionId);
+        	 
+        	 // 更新session
+        	 logger.info("session is update : " + sessionId);
+         }else{
+        	 logger.debug("session is  : " + sessionId);
+         }
+         
          result.put("user_session", sessionId);
 		
-		return result;
+		 return result;
 	}
 	
 	/**

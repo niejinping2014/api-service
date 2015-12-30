@@ -8,6 +8,10 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+		<listener>
+		<listener-class>xyz.hollysys.api.main.SessionCounter</listener-class>
+	</listener>
 
 	<!-- 为了让spring加载api-servlet之外的配置文件，需定义servlet监听器ContextLoaderListener -->
 	<context-param>

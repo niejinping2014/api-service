@@ -21,4 +21,6 @@ public interface PassportService {
 	ApiResult reset(Map<String,String> params,String body);
 	
 	ApiResult edit(Map<String,String> params,String body);
+	
+	ApiResult userdetail(Map<String,String> params,String body);
 }

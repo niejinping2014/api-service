@@ -91,6 +91,7 @@ public class ApiDispatch {
 			e.printStackTrace();
 			logger.error(e.getMessage());
 			result = apiResultUtil.getApiResult(2000);
+			result.error = e.getMessage();
 			return result;
 		}
 	}

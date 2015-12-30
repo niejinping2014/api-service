@@ -53,6 +53,9 @@
 		<entry key="99" value="非法RPC请求" />
 		<entry key="100" value="缺少参数" />
 
+		<!-- 内部错误 -->
+		<entry key="2000" value="内部错误"></entry>
+		
 		<!-- 无效信息 -->
 		<entry key="200" value="无接口使用权限" />
 		<entry key="201" value="无效模块" />
@@ -64,6 +67,12 @@
 		<entry key="1002" value="登陆失败 ,密码错误" />
 		<entry key="1003" value="退出失败,无效会话标识" />
 		<entry key="1004" value="修改密码失败,错误的密码" />
+		<entry key="1005" value="用户信息异常,解码失败，请检查格式" />
+		
+		<!-- 用户信息 -->
+		<entry key="1010" value="请重新登陆" />
+		<entry key="1011" value="会话失效" />
+		
 	</util:map>
 
 	<!-- <bean id="cityConfig" class="xyz.hollysys.api.config.CityConfig"> <property 
