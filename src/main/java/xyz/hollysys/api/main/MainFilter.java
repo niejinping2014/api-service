@@ -10,8 +10,10 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,15 +58,16 @@ public class MainFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		logger.info(" URI=" + request.getRequestURI());
 		long before = System.currentTimeMillis();
-		Map<String, String> params = HttpRequestHelper.getQueryParams(request);
+		HttpServletResponse response = (HttpServletResponse) res;
+		Map<String, String> params = HttpRequestHelper.getQueryParams(request,response);
 	//	String body = HttpRequestHelper.getBody(request);
 
 		logger.info(params.toString());
 	//	logger.info(body);
 		
-		HttpServletResponse response = (HttpServletResponse) res;
 		response.setHeader("Content-Type", "application/json;charset=UTF-8");
 		response.setCharacterEncoding(encoding);
+		
 		
 		if (apiCheck != null) {
 			ApiResult apiResult = apiCheck.check(params);

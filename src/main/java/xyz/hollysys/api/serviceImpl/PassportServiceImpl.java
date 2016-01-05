@@ -1,5 +1,6 @@
 package xyz.hollysys.api.serviceImpl;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -20,6 +21,7 @@ import xyz.hollysys.api.model.UserDetail;
 import xyz.hollysys.api.service.ApiResultUtil;
 import xyz.hollysys.api.service.PassportService;
 import xyz.hollysys.api.util.EncodeHelper;
+import xyz.hollysys.api.util.HttpRequestHelper;
 import xyz.hollysys.api.util.StringUtils;
 
 @Component("passportService")
@@ -106,15 +108,18 @@ public class PassportServiceImpl implements PassportService {
 				logger.error("用户会话失败 usr: " + regUser.account);
 			}
 			
+			Map<String,String> token = new HashMap<String,String>();
+			token.put("user_session", sessionid);
+			
 			result.code = 0;
 			result.status = 0;
 			result.error = "登陆成功";
+			result.data = token;
 		}else{
 			logger.error("用户登陆失败 usr :" + regUser.account);
 			
 			result = apiResultUtil.getApiResult(1002);
 		}
-		
 		
 		return result;
 	}
@@ -124,7 +129,8 @@ public class PassportServiceImpl implements PassportService {
 		User user = new User();
 		String sessionid = "";
 
-		sessionid = params.get("user_session");
+		//sessionid = params.get("user_session");
+		sessionid = HttpRequestHelper.getUserSession(body);
 		
 		if(sessionid.isEmpty() == false){
 			user = userDAO.getUserBySessioinId(sessionid);
@@ -172,7 +178,7 @@ public class PassportServiceImpl implements PassportService {
 			logger.info("用户登陆成功 usr : " + regUser.account);
 			
 			// 绑定session
-			sessionid = params.get("user_session");
+			sessionid = HttpRequestHelper.getUserSession(body);
 			
 			if(sessionid.isEmpty() == false){
 				userDAO.updateSessioin(regUser.account,sessionid);
@@ -207,18 +213,19 @@ public class PassportServiceImpl implements PassportService {
 			return result;
 		}
 		
-		String sessionid = params.get("user_session");
+		String sessionid = HttpRequestHelper.getUserSession(body);
 		
 		
 		User user = userDAO.getUserBySessionId(sessionid);
 		userdetail.setUser_id(user.getUser_id());
 		
-		userDAO.updateUserDetail(userdetail);
-		
-		result.code = 0;
-		result.status = 0;
-		result.error = "修改用户信息成功";
-		
+		if(0 == userDAO.updateUserDetail(userdetail)){
+			return apiResultUtil.getApiResult(201);
+		}else{
+			result.code = 0;
+			result.status = 0;
+			result.error = "修改用户信息成功";
+		}
 		return result;
 	}
 
@@ -263,7 +270,7 @@ public class PassportServiceImpl implements PassportService {
 	public ApiResult userdetail(Map<String, String> params, String body) {
 		ApiResult result = apiResultUtil.getApiResult(201);
 		logger.info("获取用户详情信息：");
-		String sessionid = params.get("user_session");
+		String sessionid = HttpRequestHelper.getUserSession(body);
 		User user = null;
 		UserDetail userdetail = null;
 		

@@ -39,7 +39,7 @@ public class MainServlet extends HttpServlet {
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 获取请求参数
-		Map<String,String> params = HttpRequestHelper.getQueryParams(request);
+		Map<String,String> params = HttpRequestHelper.getQueryParams(request,response);
 		// 获取请求body数据
 		String body = HttpRequestHelper.getBody(request);
 		
@@ -60,7 +60,7 @@ public class MainServlet extends HttpServlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 获取请求参数
-		Map<String,String> params = HttpRequestHelper.getQueryParams(request);
+		Map<String,String> params = HttpRequestHelper.getQueryParams(request,response);
 		// 获取请求body数据
 		String body = HttpRequestHelper.getBody(request);
 		
